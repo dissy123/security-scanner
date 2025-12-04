@@ -1,0 +1,42 @@
+{
+  "name": "Shai-Hulud 2.0",
+  "description": "Self-propagating npm supply chain malware (November 2025)",
+  "cve": "N/A",
+  "reference": "https://github.com/milvoj/detect_shai_hulud_v2",
+  "check_global_cache": true,
+  "scan_home": true,
+  "file_patterns": [
+    "setup_bun.js",
+    "bun_environment.js",
+    "truffleSecrets.json",
+    "cloud.json"
+  ],
+  "directory_patterns": [
+    ".truffler-cache",
+    ".dev-env"
+  ],
+  "string_markers": [
+    "Sha1-Hulud",
+    "Sha1-Hulud: The Second Coming"
+  ],
+  "process_patterns": [
+    "trufflehog",
+    "bun_environment"
+  ],
+  "packages": [],
+  "vulnerable_versions": [],
+  "patched_versions": [],
+  "remediation": [
+    "DO NOT immediately delete malware files or revoke tokens",
+    "The malware contains a dead man's switch that destroys data if access is lost",
+    "Back up your data immediately",
+    "Disconnect from network (stops exfiltration)",
+    "Do NOT mass-revoke tokens yet",
+    "Contact your security team or incident response professional",
+    "Follow coordinated remediation - see official advisories",
+    "Check GitHub repos: https://github.com/settings/repositories",
+    "Check npm packages: npm whoami && npm profile get",
+    "Review GitHub security log: https://github.com/settings/security-log"
+  ]
+}
+

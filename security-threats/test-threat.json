@@ -1,0 +1,71 @@
+{
+  "name": "Test Threat - Feature Verification",
+  "description": "Test configuration to verify all scanner features work correctly",
+  "cve": "TEST-2025-00001",
+  "reference": "https://example.com/test-threat",
+  "check_global_cache": true,
+  "scan_home": false,
+  "file_patterns": [
+    "test-malware.js",
+    "*.test-virus",
+    "suspicious-test-file.txt"
+  ],
+  "directory_patterns": [
+    ".test-malware-dir",
+    "test-virus-*"
+  ],
+  "string_markers": [
+    "TEST_MALWARE_SIGNATURE",
+    "test-virus-marker",
+    "suspicious-test-code"
+  ],
+  "process_patterns": [
+    "test-malware-process",
+    "suspicious-test"
+  ],
+  "package_versions": {
+    "test-vulnerable-package": {
+      "vulnerable_versions": ["1.0.0", "1.1.0", "2.0.0"],
+      "patched_versions": ["1.0.1", "1.1.1", "2.0.1"]
+    },
+    "test-package-with-range": {
+      "min_vulnerable_version": "3.0.0",
+      "vulnerable_ranges": [
+        {"min": "3.0.0", "max": "3.9.9"},
+        {"min": "4.0.0", "max": "4.5.0"}
+      ],
+      "patched_versions": ["3.10.0", "4.5.1"]
+    },
+    "test-safe-package": {
+      "vulnerable_versions": ["1.0.0"],
+      "patched_versions": ["1.0.1", "1.1.0", "2.0.0"]
+    }
+  },
+  "tool_versions": {
+    "node": {
+      "vulnerable_versions": ["18.18.0", "20.0.0"],
+      "patched_versions": ["18.1.0", "20.1.0"],
+      "min_vulnerable_version": "18.0.0"
+    },
+    "npm": {
+      "vulnerable_versions": ["9.0.0"],
+      "patched_versions": ["9.1.0"]
+    },
+    "yarn": {
+      "vulnerable_versions": ["1.22.0"],
+      "patched_versions": ["1.22.1"]
+    },
+    "pnpm": {
+      "vulnerable_versions": ["8.0.0"],
+      "patched_versions": ["8.0.1"]
+    }
+  },
+  "remediation": [
+    "This is a test threat - no action needed",
+    "Remove test files if found",
+    "Update test packages to patched versions",
+    "Update vulnerable tool versions (node, npm, yarn, pnpm) to patched versions",
+    "Verify all scanner features are working"
+  ]
+}
+
