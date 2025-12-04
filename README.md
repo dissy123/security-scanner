@@ -11,6 +11,9 @@ A flexible security scanner that detects multiple types of threats based on JSON
 # Scan specific directory
 ./security-scanner.sh ~/projects
 
+# Scan home directory
+./security-scanner.sh ~
+
 # Scan for specific threat only
 ./security-scanner.sh --threat shai-hulud
 
@@ -27,8 +30,11 @@ A flexible security scanner that detects multiple types of threats based on JSON
    - String markers in files (e.g., "Sha1-Hulud")
    - Package versions (vulnerable npm packages)
    - Running processes (suspicious processes)
+3. **Configuration Options**: Each threat can configure:
+   - `check_global_cache`: Check global package manager caches
+   - `scan_home`: Also scan the user's home directory
 
-3. **Automatic Detection**: The scanner automatically loads all `.json` files from the config directory
+4. **Automatic Detection**: The scanner automatically loads all `.json` files from the config directory
 
 ## Adding a New Threat
 
@@ -46,6 +52,8 @@ When a new security threat is discovered:
   "description": "Description of the threat",
   "cve": "CVE-XXXX-XXXXX",
   "reference": "https://example.com/advisory",
+  "check_global_cache": false,
+  "scan_home": false,
   "file_patterns": [
     "suspicious-file.js",
     "*.malware"
@@ -169,6 +177,28 @@ This is useful when:
 - Packages might be in cache but not in local lock files
 - Specific threats require global cache checking
 
+### Home Directory Scanning
+
+Home directory scanning can be enabled per-threat by setting `"scan_home": true` in the threat JSON file. When enabled, the scanner will also check the user's home directory (`~`) for file patterns, directory patterns, and string markers.
+
+**Per-threat configuration example:**
+```json
+{
+  "name": "My Threat",
+  "scan_home": true,
+  "file_patterns": ["malware.js"],
+  "directory_patterns": [".malware-dir"]
+}
+```
+
+This is useful when:
+- Threats may install files in the home directory
+- Malware spreads to user directories outside project folders
+- Supply chain attacks create files in common user locations
+- You want comprehensive system-wide scanning for specific threats
+
+**Note:** By default, `scan_home` is `false`. Only enable it for threats that are known to affect the home directory.
+
 ## Configuration Directory
 
 Default: `./security-threats/`
@@ -186,6 +216,9 @@ Override with `--config-dir`:
 
 # Scan only for Shai-Hulud
 ./security-scanner.sh --threat shai-hulud
+
+# Scan home directory
+./security-scanner.sh ~
 
 # Scan multiple directories
 ./security-scanner.sh ~/project1 ~/project2
